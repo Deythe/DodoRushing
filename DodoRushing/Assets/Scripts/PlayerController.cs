@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private UnityEvent dropEgg;
     private RaycastHit2D hit;
-    private Vector2 _direction;
+    private Vector2 _direction,_dashDir = Vector2.right;
     private PlayerInputs _inputs;
     private bool _isGrounded, doubleJumped, dashInCooldown, _isDashing, _onASlide;
     private float timerDash;
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
             _onASlide = value;
             if (!onASlide)
             {
-                timerDash = 2;
+                timerDash = 1;
             }
         }
     }
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
         
         do
         {
-            _direction.x += _data.dashForce;
+            _direction += _data.dashForce * _dashDir;
             if (!_onASlide)
             {
                 timerDash -= 0.1f;
@@ -109,5 +109,12 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(_data.cooldownDash);
         dashInCooldown = false;
+    }
+    public void changeDashDir(Vector2 newDir)
+    {
+        if(newDir == Vector2.right)
+            _direction = newDir * 10;
+
+        _dashDir = newDir;
     }
 }
