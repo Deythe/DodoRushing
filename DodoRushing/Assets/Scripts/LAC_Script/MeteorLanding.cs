@@ -28,7 +28,8 @@ public class MeteorLanding : MonoBehaviour
     }
     public void InitializeMeteor()
     {
-        meteorSpawn = transform.position - transform.up * 10;
+        Debug.Log("Launch meteor");
+        meteorSpawn = transform.position - transform.up * 30;
         launchTime = Time.time;
         meteor = Instantiate(meteorPrefab, meteorSpawn, transform.rotation);
     }
@@ -44,6 +45,6 @@ public class MeteorLanding : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawRay(transform.position, -transform.up * 10);
+        Gizmos.DrawRay(transform.position, -transform.up * 30);
     }
 }
