@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c56384a184d30eb418999e5d2bda3932, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  gravity: 0
-  speedMovement: 3
+  speedMovement: 4
   dashForce: 0.5
   jumpForce: 18
   height: 1.05
