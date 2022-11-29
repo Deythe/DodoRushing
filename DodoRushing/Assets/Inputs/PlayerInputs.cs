@@ -35,6 +35,15 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""ae48d57f-ecea-4de3-9859-bf0649c08376"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -46,6 +55,17 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7131da20-4907-468a-b38f-54faa089f485"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -69,6 +89,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         // Movements
         m_Movements = asset.FindActionMap("Movements", throwIfNotFound: true);
         m_Movements_Jump = m_Movements.FindAction("Jump", throwIfNotFound: true);
+        m_Movements_Dash = m_Movements.FindAction("Dash", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -129,11 +150,13 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Movements;
     private IMovementsActions m_MovementsActionsCallbackInterface;
     private readonly InputAction m_Movements_Jump;
+    private readonly InputAction m_Movements_Dash;
     public struct MovementsActions
     {
         private @PlayerInputs m_Wrapper;
         public MovementsActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @Jump => m_Wrapper.m_Movements_Jump;
+        public InputAction @Dash => m_Wrapper.m_Movements_Dash;
         public InputActionMap Get() { return m_Wrapper.m_Movements; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -146,6 +169,9 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_MovementsActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_MovementsActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_MovementsActionsCallbackInterface.OnJump;
+                @Dash.started -= m_Wrapper.m_MovementsActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_MovementsActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_MovementsActionsCallbackInterface.OnDash;
             }
             m_Wrapper.m_MovementsActionsCallbackInterface = instance;
             if (instance != null)
@@ -153,6 +179,9 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
             }
         }
     }
@@ -169,5 +198,6 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
     public interface IMovementsActions
     {
         void OnJump(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
 }
