@@ -8,12 +8,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerData _data;
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private UnityEvent dropEgg;
-    
     private RaycastHit2D hit;
     private Vector2 _direction;
     private PlayerInputs _inputs;
-    private bool _isGrounded, doubleJumped, dashInCooldown, _isDashing;
+    private bool _isGrounded, doubleJumped, dashInCooldown, _isDashing, _onASlide;
     private float timerDash;
+
+    public bool onASlide
+    {
+        get => _onASlide;
+        set
+        {
+            _onASlide = value;
+            if (!onASlide)
+            {
+                timerDash = 2;
+            }
+        }
+    }
 
     private void Start()
     {
@@ -81,7 +93,11 @@ public class PlayerController : MonoBehaviour
         do
         {
             _direction.x += _data.dashForce;
-            timerDash-=0.1f;
+            if (!_onASlide)
+            {
+                timerDash -= 0.1f;
+            }
+
             yield return new WaitForEndOfFrame();
         } while (timerDash > 0);
         
