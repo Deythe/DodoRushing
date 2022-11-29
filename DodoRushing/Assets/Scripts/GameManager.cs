@@ -13,11 +13,12 @@ public class GameManager : MonoBehaviour
     private bool gameFinished;
     private void Awake()
     {
+        Application.targetFrameRate = 60;
         if (instance != null)
         {
             Destroy(instance);
         }
-
+        
         instance = this;
         _inputs = new PlayerInputs();
         _inputs.Enable();

@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         
         if (_inputs.Movements.Jump.IsPressed() && _direction.y<0)
         {
-            _direction.y /= 1.02f;
+            _direction.y /= 1.25f;
         }
         
         _rb.velocity = _direction;
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
         
         do
         {
-            _direction += _data.dashForce * _dashDir;
+            _direction.x += _data.dashForce;
             if (!_onASlide)
             {
                 timerDash -= 0.1f;
@@ -109,12 +109,5 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(_data.cooldownDash);
         dashInCooldown = false;
-    }
-    public void changeDashDir(Vector2 newDir)
-    {
-        if(newDir == Vector2.right)
-            _direction = newDir * 10;
-
-        _dashDir = newDir;
     }
 }
