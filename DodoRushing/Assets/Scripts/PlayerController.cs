@@ -10,9 +10,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private UnityEvent dropEgg;
     private RaycastHit2D hit;
     private Vector2 _direction,_dashDir = Vector2.right;
-    private PlayerInputs _inputs;
     private bool _isGrounded, doubleJumped, dashInCooldown, _isDashing, _onASlide;
     private float timerDash;
+    public PlayerInputs _inputs;
 
     public bool onASlide
     {
