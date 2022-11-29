@@ -1079,7 +1079,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -1142,8 +1142,37 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 8
+  dropEgg:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2060499839}
+        m_TargetAssemblyTypeName: DropEggs, Assembly-CSharp
+        m_MethodName: DropEgg
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2060499838}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &2060499838 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2223154473538481655, guid: c569551408c7b7043a47fdc9f7283a7b, type: 3}
   m_PrefabInstance: {fileID: 2060499832}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2060499839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060499833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c567ebcf21d12247a56768fc3947534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eggPrefab: {fileID: 5590416736308071106, guid: 9f3b490e6b8c6da4780c0b798349d4e2, type: 3}
+  offset: {x: 0.5, y: 0}
