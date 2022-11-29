@@ -1,39 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    [SerializeField] float length;
-    float startPosition;
+    private Vector3 previousCameraPosition;
+    private Transform camera;
+    private Vector3 targetPosition;
+    
+    [SerializeField] private float parallaxAmount;
 
-    public GameObject camera;
-
-    public float tempDisplay;
-
-    public float parallaxIntensity;
-
-    void Start()
+    private void Awake()
     {
-        startPosition = transform.position.x;
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
+        camera = Camera.main.transform;
+        previousCameraPosition = camera.position;
+    }
+    
+    private void LateUpdate()
+    {
+        Vector3 movement = CameraMovement;
+        targetPosition = new Vector3(transform.position.x + movement.x * parallaxAmount, transform.position.y, transform.position.z);
+        transform.position = targetPosition;
+
     }
 
-    void Update()
+    Vector3 CameraMovement
     {
-        float temp = camera.transform.position.x * (1 - parallaxIntensity);
-        tempDisplay = temp;
-        float distance = camera.transform.position.x * parallaxIntensity;
-        transform.position = new Vector3(startPosition + distance, transform.position.y, transform.position.z);
-
-        if (temp > startPosition + length)
-        { 
-            startPosition += length;
-        }
-        else if (temp < startPosition - length)
+        get
         {
-            startPosition -= length;
+            Vector3 movement = camera.position - previousCameraPosition;
+            previousCameraPosition = camera.position;
+            return movement;
         }
-
     }
+    
 }
