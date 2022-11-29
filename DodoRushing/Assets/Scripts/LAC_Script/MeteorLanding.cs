@@ -15,8 +15,6 @@ public class MeteorLanding : MonoBehaviour
     [SerializeField] float landingDelay = 1;
     float launchTime = 0;
 
-    
-
     private void Start()
     {
         cam = Camera.main;
@@ -26,9 +24,7 @@ public class MeteorLanding : MonoBehaviour
         if(CheckInCamera() && !meteor)
             InitializeMeteor();
         if (meteor)
-        {
             meteor.transform.position = Vector3.Lerp(meteorSpawn, transform.position,(Time.time - launchTime)/landingDelay);
-        }
     }
     public void InitializeMeteor()
     {
