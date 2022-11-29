@@ -6,7 +6,9 @@ public class Slide : MonoBehaviour
     {
         if (col.CompareTag("Player"))
         {
-            col.GetComponent<PlayerController>().onASlide = true;
+            PlayerController playerC = col.GetComponent<PlayerController>();
+            playerC.changeDashDir(transform.right.normalized);
+            playerC.onASlide = true;
         }
     }
     
@@ -14,8 +16,9 @@ public class Slide : MonoBehaviour
     {
         if (col.CompareTag("Player"))
         {
-            Debug.Log("Caca");
-            col.GetComponent<PlayerController>().onASlide = false;
+            PlayerController playerC = col.GetComponent<PlayerController>();
+            playerC.changeDashDir(new Vector2(1,0));
+            playerC.onASlide = false;
         }
     }
 }
