@@ -1,11 +1,14 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private PlayerData _data;
     [SerializeField] private LayerMask groundLayerMask;
+    [SerializeField] private UnityEvent dropEgg;
+    
     private RaycastHit2D hit;
     private Vector2 _direction;
     private PlayerInputs _inputs;
@@ -25,7 +28,7 @@ public class PlayerController : MonoBehaviour
         
         if (!_isDashing)
         {
-            _direction = new Vector2(_data.speedMovement, _rb.velocity.y + _data.gravity);
+            _direction = new Vector2(_data.speedMovement, _rb.velocity.y);
         }
 
         if (_inputs.Movements.Dash.WasPerformedThisFrame() && !dashInCooldown)
@@ -63,6 +66,7 @@ public class PlayerController : MonoBehaviour
             if (!doubleJumped)
             {
                 _direction = new Vector2(_direction.x, _data.jumpForce);
+                dropEgg.Invoke();
                 doubleJumped = true;
             }
         }
