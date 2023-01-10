@@ -19,6 +19,7 @@ public class BGManager : MonoBehaviour
     
     private void MoveBg()
     {
+        Debug.Log("bg moved");
         backgrounds[0].transform.position = backgrounds[2].transform.position + new Vector3(distanceToMoveBg,0,0);
         GameObject temp = backgrounds[0];
         backgrounds[0] = backgrounds[1];
