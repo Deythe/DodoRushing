@@ -6,10 +6,10 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
-    [SerializeField] private Vector2 offsetCamera;
+    [SerializeField] private Vector3 offsetCamera;
 
     private void Update()
     {
-        transform.position = new Vector2(playerTransform.position.x, transform.position.y) + offsetCamera;
+        transform.position = new Vector3(playerTransform.position.x, transform.position.y, transform.position.z) + offsetCamera;
     }
 }

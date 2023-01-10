@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   speedMovement: 4
-  dashForce: 0.5
+  dashForce: 2
   jumpForce: 18
   height: 1.05
   cooldownDash: 2
-  durationDash: 15
+  durationDash: 2
