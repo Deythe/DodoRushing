@@ -1,0 +1,37 @@
+.simpleButton {
+    background-color: rgba(255, 255, 255, 0);
+    color: rgb(0, 0, 0);
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    -unity-font-style: bold;
+    height: 10%;
+    width: 20%;
+    background-image: url('project://database/Assets/Test%20Ajd/UI/Normal.png?fileID=2800000&guid=d82f52b222df74d48a5bb674f3c94bd1&type=3#Normal');
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    transition-property: scale;
+    transition-timing-function: ease-out-bounce;
+    transition-duration: 0.5s;
+}
+
+.simpleButton:hover {
+    background-image: url('project://database/Assets/Test%20Ajd/UI/Highlighted.png?fileID=2800000&guid=4b3bbdf8ba4988546ab9b6739ae5964d&type=3#Highlighted');
+    scale: 1.2 1.2;
+    transition-property: scale;
+    transition-timing-function: ease-in-out-back;
+    transition-duration: 0.2s;
+}
+
+.simpleButton:active {
+    background-image: url('project://database/Assets/Test%20Ajd/UI/Pressed.png?fileID=2800000&guid=5ece663e8254f864c8b357fa078ca7f5&type=3#Pressed');
+    scale: 1.2 1.2;
+}

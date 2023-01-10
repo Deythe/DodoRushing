@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +8,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerController plc;
     private PlayerInputs _inputs; 
     private bool gameFinished;
+    private Vector2 initialPositionPlayer;
+    private Quaternion initialRotationPlayer;
     private void Awake()
     {
         Application.targetFrameRate = 60;
@@ -19,17 +18,21 @@ public class GameManager : MonoBehaviour
             Destroy(instance);
         }
         
+        
         instance = this;
         _inputs = new PlayerInputs();
         _inputs.Enable();
         plc._inputs = _inputs;
+        Time.timeScale = 0;
+        initialPositionPlayer = plc.transform.position;
+        initialRotationPlayer = plc.transform.rotation;
     }
 
     private void Update()
     {
         if (_inputs.Menu.OpenMenu.WasPressedThisFrame() && !gameFinished)
         {
-            UIManager.instance.menuEnable = !UIManager.instance.menuEnable;
+            Pause();
         }
     }
 
@@ -44,12 +47,25 @@ public class GameManager : MonoBehaviour
     public void FinisGame()
     {
         gameFinished = true;
-        UIManager.instance.LevelFinished();
+    }
+
+    private void Pause()
+    {
+        Time.timeScale = 0;
+        UIManager.instance.Pause();
+    }
+
+    public void UnPause()
+    {
+        Time.timeScale = 1;
+        UIManager.instance.UnPause();
     }
 
     public void RestartGame()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        plc.transform.position = initialPositionPlayer;
+        plc.transform.rotation = initialRotationPlayer;
+        plc.Reset();
     }
 }

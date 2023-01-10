@@ -2,23 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
-    [SerializeField] private GameObject menu, menuText, levelFinishedText;
+    [SerializeField] private UIDocument uiDocument;
 
-    private bool _menuEnable;
-
-    public bool menuEnable
-    {
-        get => _menuEnable;
-        set
-        {
-            _menuEnable = value;
-            EnableDisableMenu(value);
-        }
-    }
+    private VisualElement startMenu, pauseMenu;
+    private Button playButton, quitButton, restartButton, chooseLevelButton, unPauseButton;
+    
+    
     private void Awake()
     {
         if (instance != null)
@@ -27,24 +21,39 @@ public class UIManager : MonoBehaviour
         }
 
         instance = this;
+        startMenu = uiDocument.rootVisualElement.Q<VisualElement>("startMenu");
+        pauseMenu = uiDocument.rootVisualElement.Q<VisualElement>("pauseMenu");
+        
+        
+        playButton = uiDocument.rootVisualElement.Q<Button>("playButton");
+        quitButton = uiDocument.rootVisualElement.Q<Button>("quitButton");
+        restartButton = uiDocument.rootVisualElement.Q<Button>("restartButton");
+        chooseLevelButton = uiDocument.rootVisualElement.Q<Button>("chooseLevelButton");
+        unPauseButton = uiDocument.rootVisualElement.Q<Button>("unPauseButton");
+
+
+        restartButton.clicked += StartGame;
+        playButton.clicked += StartGame;
+        quitButton.clicked += GameManager.instance.QuitGame;
+        unPauseButton.clicked += UnPause;
     }
 
-    void EnableDisableMenu(bool b)
+    public void Pause()
     {
-        menu.SetActive(b);
-        if (b)
-        {
-            Time.timeScale = 0;
-            return;
-        }
-
-        Time.timeScale = 1;
+        pauseMenu.style.display = DisplayStyle.Flex;
     }
 
-    public void LevelFinished()
+    public void UnPause()
     {
-        menuText.SetActive(false);
-        levelFinishedText.SetActive(true);
-        menuEnable = true;
+        pauseMenu.style.display = DisplayStyle.None;
+        GameManager.instance.UnPause();
     }
+    
+    private void StartGame()
+    {
+        startMenu.style.display = DisplayStyle.None;
+        pauseMenu.style.display = DisplayStyle.None;
+        GameManager.instance.RestartGame();
+    }
+    
 }
