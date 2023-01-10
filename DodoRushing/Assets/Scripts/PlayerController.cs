@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
             _onASlide = value;
             if (!onASlide)
             {
-                timerDash = 1;
+                timerDash = _data.durationDash * 0.5f;
             }
         }
     }
@@ -89,19 +89,17 @@ public class PlayerController : MonoBehaviour
         timerDash = _data.durationDash;
         _isDashing = true;
         dashInCooldown = true;
-        
+        _direction.x += _data.dashForce;
         do
         {
-            _direction.x += _data.dashForce;
             if (!_onASlide)
-            {
-                timerDash -= 0.1f;
-            }
-
+                timerDash -= Time.deltaTime;
             yield return new WaitForEndOfFrame();
+
         } while (timerDash > 0);
         
         _isDashing = false;
+        _direction.x -= _data.dashForce;
         StartCoroutine(CoroutineCooldownDash());
     }
 

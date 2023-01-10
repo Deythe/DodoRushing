@@ -24,12 +24,17 @@ public class MeteorLanding : MonoBehaviour
         if(CheckInCamera() && !meteor)
             InitializeMeteor();
         if (meteor)
-            meteor.transform.position = Vector3.Lerp(meteorSpawn, transform.position,(Time.time - launchTime)/landingDelay);
+        {
+            meteor.transform.position = Vector3.Lerp(meteorSpawn, transform.position, (Time.time - launchTime) / landingDelay);
+            if((Time.time - launchTime) / landingDelay <1)
+                meteor.transform.Rotate(0,0,360 * Time.deltaTime);
+        }
+            
     }
     public void InitializeMeteor()
     {
         Debug.Log("Launch meteor");
-        meteorSpawn = transform.position - transform.up * 30;
+        meteorSpawn = transform.position - transform.up * 60;
         launchTime = Time.time;
         meteor = Instantiate(meteorPrefab, meteorSpawn, transform.rotation);
     }
