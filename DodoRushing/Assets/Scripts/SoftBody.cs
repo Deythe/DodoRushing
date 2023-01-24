@@ -11,6 +11,9 @@ public class SoftBody : MonoBehaviour
 
     [SerializeField] private float colliderRadius;
     [SerializeField] private float splineOffset;
+    
+    [SerializeField] private CircleCollider2D centerCollider;
+    [SerializeField] private SpringJoint2D[] allSpringJoint;
 
     private Vector2 currentVertex;
 
@@ -55,12 +58,22 @@ public class SoftBody : MonoBehaviour
 
     public void GoBigger()
     {
+        centerCollider.radius += fatterRatio;
+        foreach (SpringJoint2D spring in allSpringJoint)
+        {
+            spring.autoConfigureDistance = false;
+            spring.distance += fatterRatio*2;
+        }
+    }
+    
+    /*public void GoBigger()
+    {
         foreach (var spring in springJointCenter)
         {
             spring.frequency += (fatterRatio*4);
         }
         colliderRadius += colliderRadius/2; 
         transform.DOScale(new Vector2(transform.localScale.x + fatterRatio,transform.localScale.y + fatterRatio), 0.5f);
-    }
+    }*/
     
 }
