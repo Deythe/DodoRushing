@@ -563,7 +563,7 @@ MonoBehaviour:
   - {fileID: 5003148285079941659}
   - {fileID: 5003148285842555745}
   player: {fileID: 0}
-  distanceBetweenBgAndPlayerToCheckFor: 7
+  distanceBetweenBgAndPlayerToCheckFor: 10
   distanceToMoveBg: 40
 --- !u!1 &5451009863764738004
 GameObject:
