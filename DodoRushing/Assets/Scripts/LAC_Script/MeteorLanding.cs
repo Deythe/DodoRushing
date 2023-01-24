@@ -14,7 +14,7 @@ public class MeteorLanding : MonoBehaviour
     [Header("Landing")]
     [SerializeField] float landingDelay = 1;
     float launchTime = 0;
-
+    bool land;
     private void Start()
     {
         cam = Camera.main;
@@ -28,6 +28,11 @@ public class MeteorLanding : MonoBehaviour
             meteor.transform.position = Vector3.Lerp(meteorSpawn, transform.position, (Time.time - launchTime) / landingDelay);
             if((Time.time - launchTime) / landingDelay <1)
                 meteor.transform.Rotate(0,0,360 * Time.deltaTime);
+            else if (!land)
+            {
+                SoundManager.instance?.PlaySoundOnce("MeteorImpact");
+                land = true;
+            }
         }
             
     }
