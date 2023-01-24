@@ -18,7 +18,7 @@ public class EndSequence : MonoBehaviour
 
     private void Start()
     {
-        //noOfFruitToEat = 
+        noOfFruitToEat = CollectibleManager.Instance.collectList.Count; 
         animator.SetTrigger("End");
         dayLight.SwitchToDayLight();
         body.gameObject.SetActive(true);
