@@ -3421,6 +3421,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5820666939711352411, guid: 3de82352ff5a40741aa28dfb92c4b9cb, type: 3}
   m_PrefabInstance: {fileID: 1154352309}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1223872287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1223872288}
+  - component: {fileID: 1223872289}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1223872288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223872287}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1831842859}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1223872289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223872287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16e75f959e34851408e4b462bd1ea0eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicList: {fileID: 0}
+  soundList: {fileID: 11400000, guid: 13a29225df2afa744a809b24fb9a1177, type: 2}
+  mainMixer: {fileID: 24100000, guid: 49e40f42c715e6d4b8aee7cd50b6490a, type: 2}
 --- !u!1001 &1274461901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4203,6 +4250,7 @@ Transform:
   m_Children:
   - {fileID: 1936015812}
   - {fileID: 520688673}
+  - {fileID: 1223872288}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6859,11 +6907,12 @@ MonoBehaviour:
   - {fileID: 2223154473512677176}
   - {fileID: 2223154474900352843}
   - {fileID: 2223154475315366776}
+  springJointRight: []
+  springJointLeft: []
   fatterRatio: 0.1
   colliderRadius: 0.5
   splineOffset: 0.5
   centerCollider: {fileID: 0}
-  allSpringJoint: []
 --- !u!231 &2223154474549230848
 SpringJoint2D:
   m_ObjectHideFlags: 0
