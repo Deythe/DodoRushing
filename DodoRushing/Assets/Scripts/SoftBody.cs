@@ -16,7 +16,6 @@ public class SoftBody : MonoBehaviour
 
     private Vector2 towardCenter;
 
-    // Start is called before the first frame update
     void Awake()
     {
         UpdateVertices();

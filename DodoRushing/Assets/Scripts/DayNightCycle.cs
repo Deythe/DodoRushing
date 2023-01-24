@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -10,14 +11,24 @@ public class DayNightCycle : MonoBehaviour
     private float factor;
     private float factorInverse;
     [SerializeField] private Gradient dayNightColor;
+    private bool stop;
     
     
     private void Update()
     {
-        timeOfDay = Mathf.PingPong(Time.time, cycleLength);
-        factor = timeOfDay / cycleLength;
-        factorInverse = 1 - factor;
-        globalLight.color = dayNightColor.Evaluate(factor);
-        globalLight.intensity = Mathf.Clamp(factorInverse, lightMinIntensity, 1f);
+        if (!stop)
+        {
+            timeOfDay = Mathf.PingPong(Time.time, cycleLength);
+            factor = timeOfDay / cycleLength;
+            factorInverse = 1 - factor;
+            globalLight.color = dayNightColor.Evaluate(factor);
+            globalLight.intensity = Mathf.Clamp(factorInverse, lightMinIntensity, 1f);
+        }
+    }
+
+    public void SwitchToDayLight()
+    {
+        stop = true;
+        globalLight.color = dayNightColor.Evaluate(0);
     }
 }
