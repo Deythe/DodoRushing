@@ -26,9 +26,9 @@ public class MeteorLanding : MonoBehaviour
         if (meteor)
         {
             meteor.transform.position = Vector3.Lerp(meteorSpawn, transform.position, (Time.time - launchTime) / landingDelay);
-            if((Time.time - launchTime) / landingDelay <1)
-                meteor.transform.Rotate(0,0,360 * Time.deltaTime);
-            else if (!land)
+            /*if((Time.time - launchTime) / landingDelay <1)
+                meteor.transform.Rotate(0,0,360 * Time.deltaTime);*/
+            if (!land&& !((Time.time - launchTime) / landingDelay < 1))
             {
                 SoundManager.instance?.PlaySoundOnce("MeteorImpact");
                 land = true;
