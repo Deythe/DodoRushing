@@ -14,18 +14,9 @@ public class PlayerController : MonoBehaviour
     private RaycastHit2D hit;
     private Vector2 _direction, _dashDir = Vector2.right;
     private bool _isGrounded, doubleJumped, dashInCooldown, _isDashing, _onASlide;
-    private float _timerDash, _cooldownDash;
+    private float timerDash;
     public PlayerInputs _inputs;
 
-    public float cooldownDash
-    {
-        get => _cooldownDash;
-        set
-        {
-            _cooldownDash = value;
-            UIManager.instance.UpdateProgress(value);
-        }
-    }
     public bool onASlide
     {
         get => _onASlide;
@@ -34,7 +25,7 @@ public class PlayerController : MonoBehaviour
             _onASlide = value;
             if (!onASlide)
             {
-                _timerDash = 1;
+                timerDash = _data.durationDash * 0.5f;
             }
         }
     }
@@ -79,6 +70,7 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
+        SoundManager.instance.PlaySoundOnce("Jump");
         if (_isGrounded)
         {
             _direction = new Vector2(_direction.x, _data.jumpForce);
@@ -89,6 +81,7 @@ public class PlayerController : MonoBehaviour
             {
                 psJump.Play();
                 _direction = new Vector2(_direction.x, _data.jumpForce);
+                SoundManager.instance.PlaySoundOnce("PopEgg");
                 dropEgg.Invoke();
                 doubleJumped = true;
             }
@@ -97,36 +90,28 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator CoroutineDash()
     {
-        animator.SetBool("Dash", true);
-        _timerDash = _data.durationDash;
+        SoundManager.instance.PlaySound("Slide");
+        timerDash = _data.durationDash;
         _isDashing = true;
         dashInCooldown = true;
-        
+        _direction.x += _data.dashForce;
         do
         {
-            _direction.x += _data.dashForce;
             if (!_onASlide)
-            {
-                _timerDash -= 0.1f;
-            }
-
+                timerDash -= Time.deltaTime;
             yield return new WaitForEndOfFrame();
-        } while (_timerDash > 0);
+
+        } while (timerDash > 0);
         
-        animator.SetBool("Dash", false);
         _isDashing = false;
+        _direction.x -= _data.dashForce;
+        SoundManager.instance.PlaySound("Slide",false);
         StartCoroutine(CoroutineCooldownDash());
     }
 
     IEnumerator CoroutineCooldownDash()
     {
-        cooldownDash = 0;
-        do
-        {
-            cooldownDash += Time.deltaTime;
-            yield return new WaitForFixedUpdate();
-        } while (cooldownDash < _data.cooldownDash);
-        
+        yield return new WaitForSeconds(_data.cooldownDash);
         dashInCooldown = false;
     }
 
