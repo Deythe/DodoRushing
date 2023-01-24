@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private UnityEvent dropEgg;
     [SerializeField] private Animator animator;
+    [SerializeField] private ParticleSystem psJump;
     
     private RaycastHit2D hit;
     private Vector2 _direction, _dashDir = Vector2.right;
@@ -48,7 +49,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, _data.height, groundLayerMask);
-        
+        animator.SetBool("Jump", !_isGrounded);
         if (!_isDashing)
         {
             _direction = new Vector2(_data.speedMovement, _rb.velocity.y);
@@ -82,12 +83,14 @@ public class PlayerController : MonoBehaviour
     {
         if (_isGrounded)
         {
+            psJump.Play();
             _direction = new Vector2(_direction.x, _data.jumpForce);
         }
         else
         {
             if (!doubleJumped)
             {
+                psJump.Play();
                 _direction = new Vector2(_direction.x, _data.jumpForce);
                 dropEgg.Invoke();
                 doubleJumped = true;
