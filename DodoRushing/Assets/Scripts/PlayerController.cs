@@ -39,13 +39,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        _inputs = new PlayerInputs();
-        _inputs.Enable();
-        _direction = Vector2.right * _data.speedMovement;
-    }
-
     private void Update()
     {
         _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, _data.height, groundLayerMask);
@@ -75,6 +68,11 @@ public class PlayerController : MonoBehaviour
         {
             _direction.y /= 1.25f;
         }
+
+        if (_isGrounded)
+        {
+            psJump.Stop();
+        }
         
         _rb.velocity = _direction;
     }
@@ -83,7 +81,6 @@ public class PlayerController : MonoBehaviour
     {
         if (_isGrounded)
         {
-            psJump.Play();
             _direction = new Vector2(_direction.x, _data.jumpForce);
         }
         else
@@ -147,5 +144,8 @@ public class PlayerController : MonoBehaviour
     public void StartGame()
     {
         animator.SetTrigger("Start");
+        _inputs = new PlayerInputs();
+        _inputs.Enable();
+        _direction = Vector2.right * _data.speedMovement;
     }
 }
