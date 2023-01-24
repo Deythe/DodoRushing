@@ -7,11 +7,10 @@ using UnityEngine.UIElements;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
-    [SerializeField] private UIDocument mainUI;
-    [SerializeField] private GameObject gameUI;
+    [SerializeField] private UIDocument mainUI, gameUI;
     private VisualElement startMenu, pauseMenu;
     private Button playButton, quitButton, restartButton, chooseLevelButton, unPauseButton;
-    
+    private Label counterFruits;
     
     private void Awake()
     {
@@ -30,7 +29,7 @@ public class UIManager : MonoBehaviour
         restartButton = mainUI.rootVisualElement.Q<Button>("restartButton");
         chooseLevelButton = mainUI.rootVisualElement.Q<Button>("chooseLevelButton");
         unPauseButton = mainUI.rootVisualElement.Q<Button>("unPauseButton");
-
+        counterFruits = gameUI.rootVisualElement.Q<Label>("counter");
 
         restartButton.clicked += StartGame;
         playButton.clicked += StartGame;
@@ -38,13 +37,25 @@ public class UIManager : MonoBehaviour
         unPauseButton.clicked += UnPause;
     }
 
+    private void Start()
+    {
+        gameUI.rootVisualElement.style.display = DisplayStyle.None;
+    }
+
+    public void UpdateValue(int value)
+    {
+        counterFruits.text = $"{value}";
+    }
+
     public void Pause()
     {
         pauseMenu.style.display = DisplayStyle.Flex;
+        gameUI.rootVisualElement.style.display = DisplayStyle.None;
     }
 
     public void UnPause()
     {
+        gameUI.rootVisualElement.style.display = DisplayStyle.Flex;
         pauseMenu.style.display = DisplayStyle.None;
         GameManager.instance.UnPause();
     }
@@ -53,6 +64,7 @@ public class UIManager : MonoBehaviour
     {
         startMenu.style.display = DisplayStyle.None;
         pauseMenu.style.display = DisplayStyle.None;
+        gameUI.rootVisualElement.style.display = DisplayStyle.Flex;
         GameManager.instance.RestartGame();
     }
     

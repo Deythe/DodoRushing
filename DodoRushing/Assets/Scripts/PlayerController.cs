@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerData _data;
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private UnityEvent dropEgg;
+    [SerializeField] private Animator animator;
+    
     private RaycastHit2D hit;
     private Vector2 _direction, _dashDir = Vector2.right;
     private bool _isGrounded, doubleJumped, dashInCooldown, _isDashing, _onASlide;
@@ -120,5 +122,10 @@ public class PlayerController : MonoBehaviour
         dashInCooldown = false;
         _isDashing = false;
         _onASlide = false;
+    }
+
+    public void StartGame()
+    {
+        animator.SetTrigger("Start");
     }
 }

@@ -16,10 +16,14 @@ public class CollectibleManager : MonoBehaviour
     public void PickUpCollectible(Collectible c)
     {
         if (!collectList.ContainsKey(c.type))
+        {
             collectList.Add(c.type, 1);
+        }
         else
+        {
             collectList[c.type]++;
-
-        Debug.Log("Add 1 "+c.type);
+        }
+        
+        UIManager.instance.UpdateValue(collectList[c.type]);
     }
 }

@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        plc.StartGame();
         Time.timeScale = 1;
         plc.transform.position = initialPositionPlayer;
         plc.transform.rotation = initialRotationPlayer;
