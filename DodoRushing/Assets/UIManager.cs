@@ -10,7 +10,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIDocument mainUI, gameUI;
     private VisualElement startMenu, pauseMenu;
     private Button playButton, quitButton, restartButton, chooseLevelButton, unPauseButton;
+    private ProgressBar timer;
     private Label counterFruits;
+
+    public Action<float> UpdateProgress;
     
     private void Awake()
     {
@@ -30,11 +33,15 @@ public class UIManager : MonoBehaviour
         chooseLevelButton = mainUI.rootVisualElement.Q<Button>("chooseLevelButton");
         unPauseButton = mainUI.rootVisualElement.Q<Button>("unPauseButton");
         counterFruits = gameUI.rootVisualElement.Q<Label>("counter");
-
+        timer = gameUI.rootVisualElement.Q<ProgressBar>("timer");
+        
+        
         restartButton.clicked += StartGame;
         playButton.clicked += StartGame;
         quitButton.clicked += GameManager.instance.QuitGame;
         unPauseButton.clicked += UnPause;
+
+        UpdateProgress += UpdateProgressBar;
     }
 
     private void Start()
@@ -45,6 +52,12 @@ public class UIManager : MonoBehaviour
     public void UpdateValue(int value)
     {
         counterFruits.text = $"{value}";
+    }
+
+    void UpdateProgressBar(float f)
+    {
+        Debug.Log(f);
+        timer.value = f;
     }
 
     public void Pause()
