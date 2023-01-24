@@ -14,8 +14,18 @@ public class PlayerController : MonoBehaviour
     private RaycastHit2D hit;
     private Vector2 _direction, _dashDir = Vector2.right;
     private bool _isGrounded, doubleJumped, dashInCooldown, _isDashing, _onASlide;
-    private float timerDash;
+    private float timerDash, _cooldownDash;
     public PlayerInputs _inputs;
+    
+    public float cooldownDash
+    {
+        get => _cooldownDash;
+        set
+        {
+            _cooldownDash = value;
+            UIManager.instance.UpdateProgress(value);
+        }
+    }
 
     public bool onASlide
     {
@@ -111,7 +121,13 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator CoroutineCooldownDash()
     {
-        yield return new WaitForSeconds(_data.cooldownDash);
+        cooldownDash = 0;
+        do
+        {
+            cooldownDash += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        } while (cooldownDash < _data.cooldownDash);
+        
         dashInCooldown = false;
     }
 
