@@ -7,13 +7,14 @@ public class SoftBody : MonoBehaviour
     [SerializeField] private SpriteShapeController spriteShapeController;
     [SerializeField] private Transform[] points;
     [SerializeField] private SpringJoint2D[] springJointCenter;
+    [SerializeField] private SpringJoint2D[] springJointRight;
+    [SerializeField] private SpringJoint2D[] springJointLeft;
     [SerializeField] private float fatterRatio = 0.5f;
 
     [SerializeField] private float colliderRadius;
     [SerializeField] private float splineOffset;
     
     [SerializeField] private CircleCollider2D centerCollider;
-    [SerializeField] private SpringJoint2D[] allSpringJoint;
 
     private Vector2 currentVertex;
 
@@ -56,7 +57,7 @@ public class SoftBody : MonoBehaviour
         }
     }
 
-    public void GoBigger()
+    /*public void GoBigger()
     {
         centerCollider.radius += fatterRatio;
         foreach (SpringJoint2D spring in allSpringJoint)
@@ -64,16 +65,34 @@ public class SoftBody : MonoBehaviour
             spring.autoConfigureDistance = false;
             spring.distance += fatterRatio*2;
         }
-    }
+    }*/
     
-    /*public void GoBigger()
+    public void GoBigger()
     {
         foreach (var spring in springJointCenter)
         {
-            spring.frequency += (fatterRatio*4);
+            spring.autoConfigureDistance = false;
+            spring.distance += fatterRatio;
+            spring.dampingRatio = 0.5f;
         }
-        colliderRadius += colliderRadius/2; 
-        transform.DOScale(new Vector2(transform.localScale.x + fatterRatio,transform.localScale.y + fatterRatio), 0.5f);
-    }*/
+
+        foreach (var spring in springJointLeft)
+        {
+            spring.autoConfigureDistance = false;
+            spring.distance += fatterRatio;
+            spring.dampingRatio = 0.5f;
+        }
+
+        foreach (var spring in springJointRight)
+        {
+            spring.autoConfigureDistance = false;
+            spring.distance += fatterRatio;
+            spring.dampingRatio = 0.5f;
+        }
+        //centerCollider.radius += fatterRatio;
+        //colliderRadius += colliderRadius/2;
+        //transform.DOScale(new Vector2(transform.localScale.x + fatterRatio,transform.localScale.y + fatterRatio), 0.5f);
+        
+    }
     
 }
