@@ -13,9 +13,18 @@ public class PlayerController : MonoBehaviour
     private RaycastHit2D hit;
     private Vector2 _direction, _dashDir = Vector2.right;
     private bool _isGrounded, doubleJumped, dashInCooldown, _isDashing, _onASlide;
-    private float timerDash;
+    private float _timerDash, _cooldownDash;
     public PlayerInputs _inputs;
 
+    public float cooldownDash
+    {
+        get => _cooldownDash;
+        set
+        {
+            _cooldownDash = value;
+            UIManager.instance.UpdateProgress(value);
+        }
+    }
     public bool onASlide
     {
         get => _onASlide;
@@ -24,7 +33,7 @@ public class PlayerController : MonoBehaviour
             _onASlide = value;
             if (!onASlide)
             {
-                timerDash = 1;
+                _timerDash = 1;
             }
         }
     }
@@ -88,7 +97,8 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator CoroutineDash()
     {
-        timerDash = _data.durationDash;
+        animator.SetBool("Dash", true);
+        _timerDash = _data.durationDash;
         _isDashing = true;
         dashInCooldown = true;
         
@@ -97,19 +107,26 @@ public class PlayerController : MonoBehaviour
             _direction.x += _data.dashForce;
             if (!_onASlide)
             {
-                timerDash -= 0.1f;
+                _timerDash -= 0.1f;
             }
 
             yield return new WaitForEndOfFrame();
-        } while (timerDash > 0);
+        } while (_timerDash > 0);
         
+        animator.SetBool("Dash", false);
         _isDashing = false;
         StartCoroutine(CoroutineCooldownDash());
     }
 
     IEnumerator CoroutineCooldownDash()
     {
-        yield return new WaitForSeconds(_data.cooldownDash);
+        cooldownDash = 0;
+        do
+        {
+            cooldownDash += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        } while (cooldownDash < _data.cooldownDash);
+        
         dashInCooldown = false;
     }
 
