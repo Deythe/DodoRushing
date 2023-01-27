@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviour
     public void FinisGame()
     {
         gameFinished = true;
-        Pause();
     }
 
     private void Pause()
