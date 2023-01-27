@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
         timer = gameUI.rootVisualElement.Q<ProgressBar>("timer");
         
         
-        restartButton.clicked += StartGame;
+        restartButton.clicked += RestartGame;
         playButton.clicked += StartGame;
         quitButton.clicked += GameManager.instance.QuitGame;
         unPauseButton.clicked += UnPause;
@@ -78,7 +78,16 @@ public class UIManager : MonoBehaviour
         startMenu.style.display = DisplayStyle.None;
         pauseMenu.style.display = DisplayStyle.None;
         gameUI.rootVisualElement.style.display = DisplayStyle.Flex;
+        
+        GameManager.instance.StartGame();
+    }
+
+    private void RestartGame()
+    {
+        startMenu.style.display = DisplayStyle.None;
+        pauseMenu.style.display = DisplayStyle.None;
+        gameUI.rootVisualElement.style.display = DisplayStyle.Flex;
+        
         GameManager.instance.RestartGame();
     }
-    
 }

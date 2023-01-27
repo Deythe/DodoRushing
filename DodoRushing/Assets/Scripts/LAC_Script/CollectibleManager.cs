@@ -4,6 +4,23 @@ using UnityEngine;
 
 public class CollectibleManager : MonoBehaviour
 {
+    public static CollectibleManager instance;
+    public int collectibleCount;
+    
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    public void AddCube()
+    {
+        collectibleCount++;
+        UIManager.instance.UpdateValue(collectibleCount);
+
+    }
+    
+    //wtf??
+    /*
     public static CollectibleManager Instance { get; private set; }
     public Dictionary<Collectible.Collectype, int> collectList = new Dictionary<Collectible.Collectype, int>();
     private void Awake()
@@ -24,6 +41,5 @@ public class CollectibleManager : MonoBehaviour
             collectList[c.type]++;
         }
         
-        UIManager.instance.UpdateValue(collectList[c.type]);
-    }
+    }*/
 }

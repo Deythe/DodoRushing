@@ -16,7 +16,8 @@ public class Collectible : MonoBehaviour
     void PickUp()
     {
         Debug.Log("Pickup");
-        CollectibleManager.Instance?.PickUpCollectible(this);
+        CollectibleManager.instance.AddCube();
+        //CollectibleManager.Instance?.PickUpCollectible(this);
         if (type == Collectype.fruit)
             SoundManager.instance.PlaySoundOnce("PickUp");
         gameObject.SetActive(false);

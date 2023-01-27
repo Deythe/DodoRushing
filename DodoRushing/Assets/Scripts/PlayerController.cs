@@ -4,12 +4,13 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D _rb;
+    public Rigidbody2D _rb;
     [SerializeField] private PlayerData _data;
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private UnityEvent dropEgg;
     [SerializeField] private Animator animator;
     [SerializeField] private ParticleSystem psJump;
+    public GameObject endSceneSequence;
     
     private RaycastHit2D hit;
     private Vector2 _direction, _dashDir = Vector2.right;

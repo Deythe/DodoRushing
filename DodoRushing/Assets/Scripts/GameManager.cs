@@ -47,6 +47,9 @@ public class GameManager : MonoBehaviour
     public void FinisGame()
     {
         gameFinished = true;
+        plc.endSceneSequence.SetActive(true);
+        plc._rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        plc.enabled = false;
     }
 
     private void Pause()
@@ -61,12 +64,20 @@ public class GameManager : MonoBehaviour
         UIManager.instance.UnPause();
     }
 
+    public void StartGame()
+    {
+        Time.timeScale = 1;
+        plc.StartGame();
+    }
+
     public void RestartGame()
     {
-        plc.StartGame();
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        /*plc.StartGame();
         Time.timeScale = 1;
         plc.transform.position = initialPositionPlayer;
         plc.transform.rotation = initialRotationPlayer;
-        plc.Reset();
+        plc.Reset();*/
     }
 }

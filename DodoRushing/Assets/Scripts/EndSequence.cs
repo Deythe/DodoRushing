@@ -18,18 +18,18 @@ public class EndSequence : MonoBehaviour
 
     private void Start()
     {
-        noOfFruitToEat = CollectibleManager.Instance.collectList.Count; 
+        noOfFruitToEat = CollectibleManager.instance.collectibleCount; 
+        body.gameObject.SetActive(true);
         animator.SetTrigger("End");
         dayLight.SwitchToDayLight();
         //body.gameObject.SetActive(true);
-        dayLight.
         StartCoroutine(SpawnFruit());
     }
 
     IEnumerator SpawnFruit()
     {
         yield return new WaitForSeconds(spawnInterval);
-        lastFruitSpawned = Instantiate(fruit, fruitSpawnPoint.position, Quaternion.identity);
+        lastFruitSpawned = Instantiate(fruit, body.transform.position + (Vector3.right*40), Quaternion.identity);
         lastFruitSpawned.transform.DOMove(playerMouth.position, spawnInterval/2).OnComplete(() => body.GoBigger());
         noOfFruitToEat--;
         if (noOfFruitToEat > 0)
