@@ -100,6 +100,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator CoroutineDash()
     {
+        animator.SetBool("Dash", true);
         SoundManager.instance.PlaySound("Slide");
         timerDash = _data.durationDash;
         _isDashing = true;
@@ -116,6 +117,7 @@ public class PlayerController : MonoBehaviour
         _isDashing = false;
         _direction.x -= _data.dashForce;
         SoundManager.instance.PlaySound("Slide",false);
+        animator.SetBool("Dash", false);
         StartCoroutine(CoroutineCooldownDash());
     }
 
