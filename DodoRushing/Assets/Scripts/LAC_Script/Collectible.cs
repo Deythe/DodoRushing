@@ -17,7 +17,10 @@ public class Collectible : MonoBehaviour
     {
         Debug.Log("Pickup");
         CollectibleManager.Instance?.PickUpCollectible(this);
+        if (type == Collectype.fruit)
+            SoundManager.instance.PlaySoundOnce("PickUp");
         gameObject.SetActive(false);
+        
     }
     private void OnDrawGizmos()
     {

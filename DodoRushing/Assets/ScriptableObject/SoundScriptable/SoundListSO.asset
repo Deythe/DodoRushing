@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d24127ea98b194db3855957903e08c, type: 3}
+  m_Name: SoundListSO
+  m_EditorClassIdentifier: 
+  sounds:
+  - clipName: Jump
+    clip: {fileID: 8300000, guid: 517769920b4bae84990680020889dcde, type: 3}
+    audioMixerGroup: {fileID: 24300002, guid: 08b83e41447b86b4ba9a53fde782673d, type: 2}
+    loop: 0
+    clipVolume: 0.096
+    minPitch: -0.1
+    maxPitch: 0.1
+  - clipName: MeteorImpact
+    clip: {fileID: 8300000, guid: b0f06f7fcd6a2f24f8bed5608217d993, type: 3}
+    audioMixerGroup: {fileID: 24300002, guid: 08b83e41447b86b4ba9a53fde782673d, type: 2}
+    loop: 0
+    clipVolume: 0.291
+    minPitch: -0.1
+    maxPitch: 0.1
+  - clipName: Slide
+    clip: {fileID: 8300000, guid: 790b3e2f22c050b4886a7f65c0f04c4a, type: 3}
+    audioMixerGroup: {fileID: 24300002, guid: 08b83e41447b86b4ba9a53fde782673d, type: 2}
+    loop: 1
+    clipVolume: 0.307
+    minPitch: -0.6
+    maxPitch: -0.5
+  - clipName: PickUp
+    clip: {fileID: 8300000, guid: cac66521512cea6419540b68d59e0307, type: 3}
+    audioMixerGroup: {fileID: 24300002, guid: 08b83e41447b86b4ba9a53fde782673d, type: 2}
+    loop: 1
+    clipVolume: 0.487
+    minPitch: -0.1
+    maxPitch: 0.1
+  - clipName: PopEgg
+    clip: {fileID: 8300000, guid: f6b06b8f74bfe9d479ba65335c336129, type: 3}
+    audioMixerGroup: {fileID: 24300002, guid: 08b83e41447b86b4ba9a53fde782673d, type: 2}
+    loop: 1
+    clipVolume: 1
+    minPitch: -0.1
+    maxPitch: 0.1
+  - clipName: Plane
+    clip: {fileID: 8300000, guid: f3f99012ab3a3e540a9535d02414ccbb, type: 3}
+    audioMixerGroup: {fileID: 24300002, guid: 08b83e41447b86b4ba9a53fde782673d, type: 2}
+    loop: 1
+    clipVolume: 1
+    minPitch: -0.1
+    maxPitch: 0.1

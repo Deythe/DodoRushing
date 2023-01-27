@@ -1,9 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/GameUI/GameUI.uss?fileID=7433441132597879392&amp;guid=21eb45089c13bc446aaaf2296dc9ba58&amp;type=3#GameUI" />
     <ui:VisualElement name="fruitsCountainer" style="flex-direction: row; align-items: flex-start; flex-grow: 1;">
         <ui:VisualElement name="picture" style="background-image: url(&apos;project://database/Assets/Art/SpriteSheet3.png?fileID=-2138948967&amp;guid=e8c0ed8725f8bff49b3d9b203a8d3fd2&amp;type=3#SpriteSheet3_2&apos;); width: 10%; height: 25%;" />
         <ui:Label text="0" display-tooltip-when-elided="true" name="counter" style="font-size: 200%; -unity-text-align: upper-center; flex-shrink: 1; color: rgb(159, 32, 99);" />
     </ui:VisualElement>
-    <ui:VisualElement name="dashContainer" style="flex-grow: 0.3; align-items: center;">
-        <ui:VisualElement name="dashPicture" style="background-image: url(&apos;project://database/Assets/Art/DashFx.png?fileID=21300000&amp;guid=0b9417260ddbd024ea64d87154799a17&amp;type=3#DashFx&apos;); width: 13%; height: 110%; flex-grow: 0; align-items: center; -unity-text-align: upper-left; -unity-background-image-tint-color: rgb(255, 255, 255); -unity-background-scale-mode: stretch-to-fill;" />
+    <ui:VisualElement name="dashContainer" style="flex-grow: 0.3; align-items: center; flex-direction: row; -unity-text-align: upper-center; justify-content: center; flex-wrap: nowrap; flex-shrink: 0;">
+        <ui:ProgressBar name="timer" high-value="2" low-value="0" style="width: 10%; height: 10%; scale: 2 2; flex-shrink: 0; align-items: stretch; background-color: rgb(192, 31, 46); -unity-text-outline-color: rgb(0, 0, 0);" />
+        <ui:VisualElement name="dashPicture" style="background-image: url(&apos;project://database/Assets/Art/DashFx.png?fileID=21300000&amp;guid=0b9417260ddbd024ea64d87154799a17&amp;type=3#DashFx&apos;); width: 8%; height: 90%; flex-grow: 0; align-items: center; -unity-text-align: upper-left; -unity-background-image-tint-color: rgb(255, 255, 255); -unity-background-scale-mode: stretch-to-fill; flex-shrink: 0;" />
     </ui:VisualElement>
 </ui:UXML>
