@@ -4,17 +4,29 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D _rb;
+    public Rigidbody2D _rb;
     [SerializeField] private PlayerData _data;
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private UnityEvent dropEgg;
     [SerializeField] private Animator animator;
+    [SerializeField] private ParticleSystem psJump;
+    public GameObject endSceneSequence;
     
     private RaycastHit2D hit;
     private Vector2 _direction, _dashDir = Vector2.right;
     private bool _isGrounded, doubleJumped, dashInCooldown, _isDashing, _onASlide;
-    private float timerDash;
+    private float timerDash, _cooldownDash;
     public PlayerInputs _inputs;
+    
+    public float cooldownDash
+    {
+        get => _cooldownDash;
+        set
+        {
+            _cooldownDash = value;
+            UIManager.instance.UpdateProgress(value);
+        }
+    }
 
     public bool onASlide
     {
@@ -29,17 +41,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        _inputs = new PlayerInputs();
-        _inputs.Enable();
-        _direction = Vector2.right * _data.speedMovement;
-    }
-
     private void Update()
     {
         _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, _data.height, groundLayerMask);
-        
+        animator.SetBool("Jump", !_isGrounded);
         if (!_isDashing)
         {
             _direction = new Vector2(_data.speedMovement, _rb.velocity.y);
@@ -65,6 +70,11 @@ public class PlayerController : MonoBehaviour
         {
             _direction.y /= 1.25f;
         }
+
+        if (_isGrounded)
+        {
+            psJump.Stop();
+        }
         
         _rb.velocity = _direction;
     }
@@ -80,6 +90,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!doubleJumped)
             {
+                psJump.Play();
                 _direction = new Vector2(_direction.x, _data.jumpForce);
                 SoundManager.instance.PlaySoundOnce("PopEgg");
                 dropEgg.Invoke();
@@ -90,6 +101,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator CoroutineDash()
     {
+        animator.SetBool("Dash", true);
         SoundManager.instance.PlaySound("Slide");
         timerDash = _data.durationDash;
         _isDashing = true;
@@ -106,12 +118,19 @@ public class PlayerController : MonoBehaviour
         _isDashing = false;
         _direction.x -= _data.dashForce;
         SoundManager.instance.PlaySound("Slide",false);
+        animator.SetBool("Dash", false);
         StartCoroutine(CoroutineCooldownDash());
     }
 
     IEnumerator CoroutineCooldownDash()
     {
-        yield return new WaitForSeconds(_data.cooldownDash);
+        cooldownDash = 0;
+        do
+        {
+            cooldownDash += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        } while (cooldownDash < _data.cooldownDash);
+        
         dashInCooldown = false;
     }
 
@@ -129,5 +148,8 @@ public class PlayerController : MonoBehaviour
     public void StartGame()
     {
         animator.SetTrigger("Start");
+        _inputs = new PlayerInputs();
+        _inputs.Enable();
+        _direction = Vector2.right * _data.speedMovement;
     }
 }

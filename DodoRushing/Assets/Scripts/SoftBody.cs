@@ -15,6 +15,7 @@ public class SoftBody : MonoBehaviour
     [SerializeField] private float splineOffset;
     
     [SerializeField] private CircleCollider2D centerCollider;
+    [SerializeField] private Collider2D playerCollider;
 
     private Vector2 currentVertex;
 
@@ -22,6 +23,7 @@ public class SoftBody : MonoBehaviour
 
     void Awake()
     {
+        playerCollider.enabled = false;
         UpdateVertices();
     }
 
@@ -56,20 +58,10 @@ public class SoftBody : MonoBehaviour
             spriteShapeController.spline.SetLeftTangent(x, newLt);
         }
     }
-
-    /*public void GoBigger()
-    {
-        centerCollider.radius += fatterRatio;
-        foreach (SpringJoint2D spring in allSpringJoint)
-        {
-            spring.autoConfigureDistance = false;
-            spring.distance += fatterRatio*2;
-        }
-    }*/
     
     public void GoBigger()
     {
-        foreach (var spring in springJointCenter)
+        /*foreach (var spring in springJointCenter)
         {
             spring.autoConfigureDistance = false;
             spring.distance += fatterRatio;
@@ -88,10 +80,10 @@ public class SoftBody : MonoBehaviour
             spring.autoConfigureDistance = false;
             spring.distance += fatterRatio;
             spring.dampingRatio = 0.5f;
-        }
-        //centerCollider.radius += fatterRatio;
-        //colliderRadius += colliderRadius/2;
-        //transform.DOScale(new Vector2(transform.localScale.x + fatterRatio,transform.localScale.y + fatterRatio), 0.5f);
+        }*/
+        centerCollider.radius += fatterRatio;
+        colliderRadius += colliderRadius/2;
+        transform.DOScale(new Vector2(transform.localScale.x + fatterRatio,transform.localScale.y + fatterRatio), 0.5f);
         
     }
     
